@@ -1,4 +1,4 @@
-//A program to convert  celsius to fahrenheit
+//A C++ program to convert  celsius to fahrenheit
 
 #include <iostream>
 
@@ -9,7 +9,6 @@ using namespace std;
 int CF_Converter(){
   float fahrenheit;
   float celsius;
-  string s;
   cout << "Please input temperature in degrees celsius \n" ;
   cin >> celsius;
   fahrenheit = ((9.0/5.0)*celsius)+ 32;
@@ -19,7 +18,6 @@ int CF_Converter(){
 int FC_Converter(){
   float fahrenheit;
   float celsius;
-  string s;
   cout << "Please input temperature in degrees fahrenheit \n" ;
   cin >> fahrenheit;
   celsius = (fahrenheit - 32) / (9.0/5.0);
