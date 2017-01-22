@@ -22,14 +22,30 @@ int Bubble(){
   for(int j= 0; j< n; j++){
     cout << array[j];
   }
+  cout << "\n";
   for(int k = 0; k<n; k++){
     //loop through array,
     //check if k > k+1
     //if so swap the index of k and k+1
+    if(array[k] > array[k+1]){
+      void swap(int p1, int p2);
+      swap(array[k], array[k+1]);
+    }
   }
-  return 0;
-}
+  for(int j= 0; j< n; j++){
+    cout << array[j];
+  }
 
+  return 0;
+ }
+
+void swap(int p1, int p2) {
+   //if ((p1 != NULL) && (p2 != NULL)) {
+     int temp = p1;
+     p1 = p2;
+     p2 = temp;
+  //}
+}
 
 int main(){
   int bubble;
