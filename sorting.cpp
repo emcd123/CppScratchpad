@@ -9,7 +9,7 @@ using namespace std;
 //1st ALGORITHM
 //Bubble sorting
 //Complexity O(n^2)
-int Bubble(){
+char Bubble(){
   const int n = 5;
   int array[n];
 
@@ -23,12 +23,12 @@ int Bubble(){
     cout << array[j];
   }
   cout << "\n";
-  for(int k = 0; k<n; k++){
+  for(int k = 0; k < n; k++){
     //loop through array,
     //check if k > k+1
     //if so swap the index of k and k+1
     if(array[k] > array[k+1]){
-      void swap(int p1, int p2);
+      //void swap(int &p1, int &p2);
       swap(array[k], array[k+1]);
     }
   }
@@ -36,10 +36,10 @@ int Bubble(){
     cout << array[j];
   }
 
-  return 0;
+  return 'e';
  }
 
-void swap(int p1, int p2) {
+void swap(int &p1, int &p2) {
    //if ((p1 != NULL) && (p2 != NULL)) {
      int temp = p1;
      p1 = p2;
@@ -48,8 +48,8 @@ void swap(int p1, int p2) {
 }
 
 int main(){
-  int bubble;
-  bubble = Bubble();
-  cout << bubble;
+  //bubble;
+  //bubble = Bubble();
+  cout << Bubble();
   return 0;
 }
