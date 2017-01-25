@@ -15,33 +15,33 @@ int main(){
     Q8 i) estimates the smallest positive
     double that is representable
   */
-  double x;
-  x = 1;
-  while ((x/2)>0) {
-    x = x/2;
+  double smallestDouble;
+  smallestDouble = 1;
+  while ((smallestDouble/2)>0) {
+    smallestDouble = smallestDouble/2;
   }
-  cout << x << " = Smallest positive double"  << "\n";
+  cout << smallestDouble << " = Smallest positive double"  << "\n";
 
   /*
     Q8 ii) largest positive double
   */
-   double y;
-   y=1;
-   while(isfinite(y*2) == 1 ){
-     y= y*2;
+   double largestDouble;
+   largestDouble=1;
+   while(isfinite(largestDouble*2) == 1 ){
+     largestDouble= largestDouble*2;
    }
-   cout << y << " = largest positive double" << "\n";
+   cout << largestDouble << " = largest positive double" << "\n";
 
   /*
      Q8 iii) estimate the smallest positive double x,
      such that x+1 is distinguishable from 1
   */
-  double z;
-  z =1;
-  while((1+z/2) != 1){
-    z = z/2;
+  double machineEpsilon;
+  machineEpsilon =1;
+  while((1+machineEpsilon/2) != 1){
+    machineEpsilon = machineEpsilon/2;
   }
-  cout << z << " = Smallest positive double s.t its distinguishable from 1" << "\n";
+  cout << machineEpsilon << " = Smallest positive double such that its distinguishable from 1" << "\n";
 
   return 0;
 }
