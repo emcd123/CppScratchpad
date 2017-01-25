@@ -8,14 +8,21 @@
 #include <iostream>
 #include <stdlib.h>
 #include <math.h>
+#include <cmath>
+
 
 using namespace std;
 
 
 int F(int x){
    //float y_values = exp(cos(x/2));
-   float y_values = x+2;
+   float y_values = 1/(pow(x,2)+1);
    return y_values;
+}
+
+int Lagrange(){
+
+  return 0;
 }
 
 
@@ -32,11 +39,17 @@ int main(){
   x[1] = h;
   x[2] = b;
 
+  int f_y[3];//our y_values from evaluating f(x)
+
   for(int i=0; i<3; i++){
     float func;
     func = F(x[i]);
     cout << func;
+    f_y[i] = func;
   }
+  for(int k=0; k<3; k++){
+    cout << f_y[k];
+
 
   return 0;
 }
