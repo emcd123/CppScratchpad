@@ -74,22 +74,25 @@ double bisection(double a, double b, int &k)
 }
 
 double recursiveBisection(double a, double b){
-  if((b-a) < bound){
-    return ;
-  }
-  else{
+  double c = (a+b)/2.0;
+  if((b-a) > bound){
     double c = (a+b)/2.0;
       double l = (a+c)/2.0, r=(c+b)/2.0;
 
-      if ( (f(c) > f(l)) && (f(c) > f(r)) )
-      {
+      if ( (f(c) > f(l)) && (f(c) > f(r)) ){
           a=l;
           b=r;
       }
-      else if ( f(l) > f(r) )
-          b=c;
-      else
-          a=c;
-    return recursiveBisection(a,b);
+      else if ( f(l) > f(r) ){
+        b=c;
+      }
+      else{
+        a=c;
+      }
+      return recursiveBisection(a,b);
+
+  }
+  else{
+    return c;
   }
 }
