@@ -1,9 +1,8 @@
 // CS319 -- Scientific Computing
 // A very basic implementation of a bisection algorithm.
 // This is loosely based on Shapira "Solving PDEs in C++", Section 1.20
-// Author: Niall Madden
-// Date: 30/01/2017
-// For more, see:  See http://www.maths.nuigalway.ie/~niall/CS319/lab2/
+//Written by EmcD123
+
 #include <iostream>
 #include <iomanip>
 #include <math.h>
@@ -51,32 +50,29 @@ int main()
 // ARGUMENTS: (double) a and (double) b
 // RETURNS: (double) c, the point where the function f,
 //    defined above, achieves its max.
-double bisection(double a, double b, int &k)
-{
+double bisection(double a, double b, int &k){
   double c = (a+b)/2.0;
   const int maxIter = 31;
 
-  while ( (b-a) > bound)
-    {
-      if (k == maxIter){
-        std::cout << "Maximum iterations reached...did not converge \n";
-        return 0;
-      }
-      k++;
-      c = (a+b)/2.0;
-        double l = (a+c)/2.0, r=(c+b)/2.0;
-
-        if ( (f(c) > f(l)) && (f(c) > f(r)) )
-        {
-            a=l;
-            b=r;
-        }
-        else if ( f(l) > f(r) )
-            b=c;
-        else
-            a=c;
+  while ( (b-a) > bound){
+    if (k == maxIter){
+      std::cout << "Maximum iterations reached...did not converge \n";
+      return 0;
     }
-
+    k++;
+    c = (a+b)/2.0;
+      double l = (a+c)/2.0, r=(c+b)/2.0;
+      if ( (f(c) > f(l)) && (f(c) > f(r)) ){
+          a=l;
+          b=r;
+      }
+      else if ( f(l) > f(r) ){
+        b=c;
+      }
+      else{
+        a=c;
+      }
+  }
     return(c);
 }
 /*
@@ -117,20 +113,18 @@ double recursiveBisection(double a, double b){
   double c = (a+b)/2.0;
   if((b-a) > bound){
     double c = (a+b)/2.0;
-      double l = (a+c)/2.0, r=(c+b)/2.0;
-
-      if ( (f(c) > f(l)) && (f(c) > f(r)) ){
+    double l = (a+c)/2.0, r=(c+b)/2.0;
+      if ((f(c) > f(l)) && (f(c) > f(r))){
           a=l;
           b=r;
       }
-      else if ( f(l) > f(r) ){
+      else if (f(l) > f(r)){
         b=c;
       }
       else{
         a=c;
       }
       return recursiveBisection(a,b);
-
   }
   else{
     return c;
