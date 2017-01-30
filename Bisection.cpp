@@ -8,24 +8,20 @@
 #include <math.h>
 
 double bound;
-
 double bisection(double left, double right, int &iterCount);
 double recursiveBisection(double a, double b);
 double Bisection(double a, double b, int &k, double ObjFn(double));
-
 
 // The objective function
 double f(double x){
   return( exp(x) - 3*x*x + 2*x );
 }
-
 // The generalised objective function,used in part e)
 double ObjFn(double x){
   return( exp(x) - 3*x*x + 2*x );
 }
 
-int main()
-{
+int main(){
   std::cout << "Enter the bound value: \n ";
   std::cin >> bound;
 
@@ -36,15 +32,12 @@ int main()
   //c = recursiveBisection(a,b);
   c = Bisection(a,b,k,ObjFn);// just add the function to the arguments,then call the function bisection again
 
-
   std::cout << "The maximum of the function between "
       << a << " and " << b << " is at "
 	    << std::setprecision(10) << c << std::endl;
       std::cout << "Number of iterations in loop: " << k << "\n";
-
   return(0);
 }
-
 
 // FUNCTION: bsection
 // ARGUMENTS: (double) a and (double) b
