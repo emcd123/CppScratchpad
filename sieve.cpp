@@ -12,9 +12,7 @@ bool isPrime(int x);
 bool isEven(int a);
 
 int main(){
-
   sieve();
-
   //for(int i = 0; i<n; i++){
     //potentialPrimes[n] = i;
   //}
@@ -22,7 +20,7 @@ int main(){
 }
 
 void sieve(){
-  const int n = 12;
+  const int n = 100;
 
   std::vector <int> potentialPrimes;
   for(int k=2; k<n; k++){
