@@ -1,6 +1,5 @@
 /*
-   Lab 2; CS319
-   Written by Owen McDonnell;1436511
+
    Assignment: Part 1
 */
 #include <iostream>
@@ -32,11 +31,11 @@ int main(){
       << a << " and " << 10-a << " is at "
 	    << std::setprecision(10) << c << std::endl;
       std::cout << "Number of iterations in loop: " << k << "\n";
-  double p1 =0    , p2 = 100;
-  double min;
-  int k1 = 0;
+//  double p1 =0    , p2 = 100;
+  //double min;
+  //int k1 = 0;
 
-  min  = Bisection(p1,p2,k1,Planes);
+  //min  = Bisection(p1,p2,k1,Planes);
 
   return(0);
 }
