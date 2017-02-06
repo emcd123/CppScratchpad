@@ -1,6 +1,4 @@
 /*
-   Lab 2; CS319
-   Written by Owen McDonnell;1436511
    Assignment: Part 2
 */
 #include <iostream>
