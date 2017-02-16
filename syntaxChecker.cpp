@@ -8,12 +8,14 @@
 #include <cstdlib>
 #define MAX_STACK 10
 
-bool bracketMatch(char c);
+bool openBracketMatch(char c);
+bool closedBracketMatch(char c);
 
 class stack {
 private:
   char *contents;
-  int top;
+  unsigned int top;
+  unsigned int StackSize;
 public:
   stack (void);
   stack (unsigned int StackSize);
@@ -44,7 +46,7 @@ bool stack::emptyCheck(void){
   }
 }
 bool stack::fullCheck(void){
-  if(top == StackSize){
+  if(top == (StackSize)){
     return true;
   }
   else{
@@ -74,6 +76,7 @@ char stack::pop(void){
 
 int main(){
   stack syntaxChecker(5);
+
   std::ifstream InFile;
   std::ofstream OutFile;
   char c;
@@ -100,8 +103,13 @@ int main(){
       find you find its matching character pop it off the stack,
       At the end, if the stack is not empty there is an error
     */
-    if(bracketMatch(c)){//finds if a character is a bracket,returns true then push character
+    if(openBracketMatch(c)){//finds if a character is a bracket,returns true then push character
       syntaxChecker.push(c);
+      std::cout << c << std::endl;
+    }
+    if(closedBracketMatch(c)){//finds if a character is a bracket,returns true then push character
+      std::cout << syntaxChecker.pop() << std::endl;
+
     }
   }
   OutFile << file << "file contains "
@@ -110,28 +118,34 @@ int main(){
   InFile.close();
   OutFile.close();
 
-  while(! syntaxChecker.emptyCheck()){
-    std::cout << syntaxChecker.pop() << std::endl;
-  }
+  //while(! syntaxChecker.emptyCheck()){
+    //std::cout << syntaxChecker.pop() << std::endl;
+  //}
+  //std::cout << syntaxChecker.pop() << std::endl;
 
   return 0;
 }
 
 
-bool bracketMatch(char c){
+bool openBracketMatch(char c){
   if(c == '('){
-    return true;
-  }
-  if(c == ')'){
     return true;
   }
   if(c == '['){
     return true;
   }
-  if(c == ']'){
+  if(c == '{'){
     return true;
   }
-  if(c == '{'){
+  else{
+    return false;
+  }
+}
+bool closedBracketMatch(char c){
+  if(c == ')'){
+    return true;
+  }
+  if(c == ']'){
     return true;
   }
   if(c == '}'){
