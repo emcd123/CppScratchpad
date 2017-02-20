@@ -9,7 +9,7 @@
 #define MAX_STACK 10
 
 bool openBracketMatch(char c);
-bool closedBracketMatch(char c);
+bool closedBracketMatch(stack &syntaxChecker,char c);
 bool isComment(char k, char c);
 
 class stack {
@@ -26,6 +26,7 @@ public:
   char pop(void );
   bool emptyCheck(void);
   bool fullCheck(void);
+  char peak(void );
 };
 stack::stack(void){
   top=0;
@@ -73,7 +74,15 @@ char stack::pop(void){
       return(contents[top]);
     }
 }
-
+char stack::peak(void){
+    if(emptyCheck()){
+      std::cerr << "An opening bracket is missing somewhere";
+      return((char)NULL);
+    }
+    else{
+      return(contents[top]);
+    }
+}
 
 int main(){
   stack syntaxChecker(5);
@@ -81,10 +90,7 @@ int main(){
   std::ifstream InFile;
   std::ofstream OutFile;
   char c;
-  //char k;
-  int counter = 0;
-  int slashCount = 0 % 3;
-  //char bracketBuffer;
+//  char k;
 
   std::string file;
   std::cout<< "Enter name of file to be checked: "<< std::endl;
@@ -108,28 +114,15 @@ int main(){
       find you find its matching character pop it off the stack,
       At the end, if the stack is not empty there is an error
     */
-    if(c == '/'){
-      slashCount++;
-    }
-    if(c != '/'){
-      slashCount--;
-    }
-    if(slashCount == 2){
-         counter++;
-         std::cout << "The count: " << counter << std::endl;
-         if(c == '\n'){
-           for(int i =0; i< counter; i++){
-             syntaxChecker.pop();
-           }
-         }
-       std::cout << "There is a comment " << std::endl;
+    if(c == '/' && InFile.peek() == '/'){
+      //Now we are in a comment
+      std::cout << "There is a comment" << std::endl;
     }
     if(openBracketMatch(c)){//finds if a character is a bracket,returns true then push character
       syntaxChecker.push(c);
-      //bracketBuffer = c;
       //std::cout << c << std::endl;
     }
-    if(closedBracketMatch(c)){//finds if a character is a bracket,returns true then pop character
+    if(closedBracketMatch(syntaxChecker,c)){//finds if a character is a bracket,returns true then pop character
       std::cout << syntaxChecker.pop() << std::endl;
     }
   }
@@ -167,14 +160,14 @@ bool openBracketMatch(char c){
     return false;
   }
 }
-bool closedBracketMatch(char c){
-  if(c == ')'){
+bool closedBracketMatch(stack &syntaxChecker ,char c){
+  if((syntaxChecker.peak() == '(') && (c == ')')){
     return true;
   }
-  if(c == ']'){
+  if((syntaxChecker.peak() == '(') && (c == ']')){
     return true;
   }
-  if(c == '}'){
+  if((syntaxChecker.peak() == '(') && (c == '}')){
     return true;
   }
   else{
