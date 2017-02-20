@@ -10,6 +10,7 @@
 
 bool openBracketMatch(char c);
 bool closedBracketMatch(char c);
+bool isComment(char k, char c);
 
 class stack {
 private:
@@ -64,7 +65,7 @@ void stack::push(char c){
 }
 char stack::pop(void){
     if(emptyCheck()){
-      std::cerr << "Cannot pop on an empty stack..";
+      std::cerr << "An opening bracket is missing somewhere";
       return((char)NULL);
     }
     else{
@@ -80,6 +81,10 @@ int main(){
   std::ifstream InFile;
   std::ofstream OutFile;
   char c;
+  //char k;
+  int counter = 0;
+  int slashCount = 0 % 3;
+  //char bracketBuffer;
 
   std::string file;
   std::cout<< "Enter name of file to be checked: "<< std::endl;
@@ -103,13 +108,29 @@ int main(){
       find you find its matching character pop it off the stack,
       At the end, if the stack is not empty there is an error
     */
+    if(c == '/'){
+      slashCount++;
+    }
+    if(c != '/'){
+      slashCount--;
+    }
+    if(slashCount == 2){
+         counter++;
+         std::cout << "The count: " << counter << std::endl;
+         if(c == '\n'){
+           for(int i =0; i< counter; i++){
+             syntaxChecker.pop();
+           }
+         }
+       std::cout << "There is a comment " << std::endl;
+    }
     if(openBracketMatch(c)){//finds if a character is a bracket,returns true then push character
       syntaxChecker.push(c);
-      std::cout << c << std::endl;
+      //bracketBuffer = c;
+      //std::cout << c << std::endl;
     }
-    if(closedBracketMatch(c)){//finds if a character is a bracket,returns true then push character
+    if(closedBracketMatch(c)){//finds if a character is a bracket,returns true then pop character
       std::cout << syntaxChecker.pop() << std::endl;
-
     }
   }
   OutFile << file << "file contains "
@@ -118,15 +139,20 @@ int main(){
   InFile.close();
   OutFile.close();
 
-  //while(! syntaxChecker.emptyCheck()){
-    //std::cout << syntaxChecker.pop() << std::endl;
-  //}
-  //std::cout << syntaxChecker.pop() << std::endl;
-
+  while(! syntaxChecker.emptyCheck()){
+    std::cout << "The match for this type bracket is missing somewhere: ";
+    std::cout << syntaxChecker.pop() << std::endl;
+  }
   return 0;
 }
-
-
+bool isComment(char k, char c){
+  if(k == '/' && c == '/'){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
 bool openBracketMatch(char c){
   if(c == '('){
     return true;
@@ -155,3 +181,19 @@ bool closedBracketMatch(char c){
     return false;
   }
 }
+/*
+bool closedBracketMatch(char k, char c){
+  if(k == '(' && c == ')'){
+    return true;
+  }
+  if(k == '[' && c == ']'){
+    return true;
+  }
+  if(k == '{' && c == '}'){
+    return true;
+  }
+  else{
+    return false;
+  }
+}
+*/
