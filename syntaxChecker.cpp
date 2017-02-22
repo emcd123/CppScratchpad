@@ -9,7 +9,6 @@
 #define MAX_STACK 10
 
 bool openBracketMatch(char c);
-bool closedBracketMatch(stack &syntaxChecker,char c);
 bool isComment(char k, char c);
 
 class stack {
@@ -24,9 +23,9 @@ public:
   void init(void );
   void push(char c);
   char pop(void );
-  bool emptyCheck(void);
+  bool emptyCheck(void) const;
   bool fullCheck(void);
-  char peak(void );
+  char peak(void ) const;
 };
 stack::stack(void){
   top=0;
@@ -39,7 +38,7 @@ stack::stack(unsigned int StackSize){
 stack::~stack(){
   delete [] contents;
 }
-bool stack::emptyCheck(void){
+bool stack::emptyCheck(void) const{
   if(top == 0){ //Stack is Empty
      return(true);
   }
@@ -74,15 +73,16 @@ char stack::pop(void){
       return(contents[top]);
     }
 }
-char stack::peak(void){
+char stack::peak(void) const{
     if(emptyCheck()){
-      std::cerr << "An opening bracket is missing somewhere";
+      //std::cerr << "An opening bracket is missing somewhere";
       return((char)NULL);
     }
     else{
       return(contents[top]);
     }
 }
+bool closedBracketMatch(const stack &syntaxChecker,char c);
 
 int main(){
   stack syntaxChecker(5);
@@ -117,6 +117,10 @@ int main(){
     if(c == '/' && InFile.peek() == '/'){
       //Now we are in a comment
       std::cout << "There is a comment" << std::endl;
+      while(c != '\n'){
+        InFile.get(c);
+        //std::cout << "1" << std::endl;
+      }
     }
     if(openBracketMatch(c)){//finds if a character is a bracket,returns true then push character
       syntaxChecker.push(c);
@@ -133,8 +137,8 @@ int main(){
   OutFile.close();
 
   while(! syntaxChecker.emptyCheck()){
-    std::cout << "The match for this type bracket is missing somewhere: ";
-    std::cout << syntaxChecker.pop() << std::endl;
+    //std::cout << "The match for this type bracket is missing somewhere: ";
+    //std::cout << syntaxChecker.pop() << std::endl;
   }
   return 0;
 }
@@ -160,14 +164,14 @@ bool openBracketMatch(char c){
     return false;
   }
 }
-bool closedBracketMatch(stack &syntaxChecker ,char c){
+bool closedBracketMatch(const stack &syntaxChecker ,char c){
   if((syntaxChecker.peak() == '(') && (c == ')')){
     return true;
   }
-  if((syntaxChecker.peak() == '(') && (c == ']')){
+  if((syntaxChecker.peak() == '[') && (c == ']')){
     return true;
   }
-  if((syntaxChecker.peak() == '(') && (c == '}')){
+  if((syntaxChecker.peak() == '{') && (c == '}')){
     return true;
   }
   else{
