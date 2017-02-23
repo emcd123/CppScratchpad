@@ -82,7 +82,7 @@ char stack::topCheck(void){
       return(contents[top-1]);
     }
 }
-bool closedBracketMatch(stack &syntaxChecker,char c);
+bool closedBracketMatch(char c);
 
 int main(){
   stack syntaxChecker(5);
@@ -115,29 +115,28 @@ int main(){
       At the end, if the stack is not empty there is an error
     */
     if(c == '/' && InFile.peek() == '/'){
+      //Now we are in a comment
+      std::cout << "There is a comment" << std::endl;
       while(c != '\n'){
         InFile.get(c);
-      }
-    }
-    if(c == ('\'')){
-//      InFile.get(c);
-      while(c != '\''){
-        InFile.get(c);
-      }
-    }
-    if(c == ('\"')){
-      InFile.get(c);
-      while(c != '\"'){
-        InFile.get(c);
+        //std::cout << "1" << std::endl;
       }
     }
     if(openBracketMatch(c)){//finds if a character is a bracket,returns true then push character
       syntaxChecker.push(c);
     }
 
-    if(closedBracketMatch(syntaxChecker,c)){//finds if a character is a bracket,returns true then pop character
-      std::cout << "Popping: " << syntaxChecker.pop() << std::endl;
-      //syntaxChecker.pop();
+    if(closedBracketMatch(c)){
+      if((syntaxChecker.topCheck() == '(') && (c == ')')){
+        std::cout << syntaxChecker.pop() << std::endl;
+      }
+      if((syntaxChecker.topCheck() == '[') && (c == ']')){
+        std::cout << syntaxChecker.pop() << std::endl;
+      }
+      if((syntaxChecker.topCheck() == '{') && (c == '}')){
+        std::cout << syntaxChecker.pop() << std::endl;
+      }
+
     }
   }
   OutFile << file << "file contains "
@@ -146,10 +145,7 @@ int main(){
   InFile.close();
   OutFile.close();
 
-  if(syntaxChecker.emptyCheck()){
-    std::cout << "No errors found" << std::endl;
-  }
-
+  std::cout << "the whole file has been read" << std::endl;
   while(! syntaxChecker.emptyCheck()){
     std::cout << "The match for this type bracket is missing somewhere: ";
     std::cout << syntaxChecker.pop() << std::endl;
@@ -177,7 +173,7 @@ bool openBracketMatch(char c){
   else{
     return false;
   }
-}
+}/*
 bool closedBracketMatch(stack &syntaxChecker ,char c){
   //std::cout << " c = "<< c << " " <<"top = " << syntaxChecker.topCheck() << std::endl;
   if((syntaxChecker.topCheck() == '(') && (c == ')')){
@@ -193,19 +189,18 @@ bool closedBracketMatch(stack &syntaxChecker ,char c){
     return false;
   }
 }
-/*
-bool closedBracketMatch(char k, char c){
-  if(k == '(' && c == ')'){
+*/
+bool closedBracketMatch(char c){
+  if(c == ')'){
     return true;
   }
-  if(k == '[' && c == ']'){
+  if(c == ']'){
     return true;
   }
-  if(k == '{' && c == '}'){
+  if(c == '}'){
     return true;
   }
   else{
     return false;
   }
 }
-*/
