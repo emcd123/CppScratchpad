@@ -11,12 +11,14 @@
 /*         C-style comments(leave until last)                                             */
 /*         Error not called when closed bracket exist without an open bracket             */
 /*         Have to fix "No errors" message when a closing bracket without opening exists  */
+/*         Line Count                                                                     */
+
 
 /* To Do:                                                                                 */
-/*         Checking order of brackets                                                     */
-/*         Line Count                                                                     */
+/*         Checking order of brackets(kind of done,but not satisfactory)                                                     */
 /*         Implement a isComment() function to remove excess if statements from main()    */
 /*         Need to improve effectiveness of output                                        */
+/*         Finding line error that actually occurred on(not possible with current procedure)*/
 /******************************************************************************************/
 
 /**************************************************************************************************************
@@ -25,15 +27,15 @@
     It has a new member function called topCheck() ,which finds the top element of the stack and returns it
 
     The bracket matching is done using two functions; openBracketMatch() and closedBracketMatch()
-    openBracketMatch() checks if a given character is one of (, [, { and if it is pushes it to the stack
-    closedBracketMatch() checks if a given character is one of ), ], } and it matches the top of the stack,
+    openBracketMatch() checks if a given character is one of (, [, { ,and if it is, pushes it to the stack
+    closedBracketMatch() checks if a given character is one of ), ], } and if it matches the top of the stack,
     if it does then it pops the open bracket off the stack
 
     The third bracket function, isCloseBracket(), just checks that c is a closing bracket, that way
     we can return an error if there isnt a bracket on the stack to match with like in closedBracketMatch()
 
     For '//' we check if the first char is /, then use std::peak to see the next char
-    If we are in a comment we keep increment through chars until we reach a new Line
+    If we are in a comment we keep incrementing through chars until we reach a new Line
     Then we start bracket checking again
 
     Strings of type "" and '' are treated much the same as above
@@ -47,6 +49,10 @@
 
     If at the end, the stack is empty; Then there are no errors this code can detect in the file;
     So we return a "No errors in code" message
+
+    Test5 is accounted for in that the opening brackets are counted and closed brackets are counted, so if
+    they are not equal there are definite errors, however if they are identical and other errors are returned
+    then it is quite likely the brackets are in the wrong order
 ************************************************************************************************************/
 
 #include <iostream>
@@ -133,7 +139,7 @@ int main(){
   stack syntaxChecker(5);
 
   std::ifstream InFile;
-  std::ofstream OutFile;
+  //std::ofstream OutFile;
   char c;
   int flag = 0;//similar to a check bit
   int lineCount = 0;
@@ -145,15 +151,10 @@ int main(){
   std::cin >> file;
 
   std::cout << "Processing the contents of " << file  << std::endl;
-  std::cout << " See file Output.txt for more information." << std::endl;
   InFile.open(file.c_str());
-  OutFile.open("Output.txt");
 
-  int i=0;
-  InFile.get(c);
 
   while(! InFile.eof()){
-    i++;
     InFile.get(c);
 
     if(c == '\n'){
@@ -184,13 +185,11 @@ int main(){
     if(openBracketMatch(c)){//finds if a character is a opening bracket,if returns true then push character
       syntaxChecker.push(c);
       pushCount++;
-      //std::cout << "Pushing: " << c << std::endl;
     }
     if(isCloseBracket(c)){//finds if a character is a closing bracket,then check it matches top,then pop character
+        popCount++;
         if(closedBracketMatch(syntaxChecker,c)){
-          //std::cout << "Popping: " << syntaxChecker.pop() << std::endl;
           syntaxChecker.pop();
-          popCount++;
         }
         else{
           flag  = 1;
@@ -198,22 +197,21 @@ int main(){
         }
     }
   }
-  OutFile << file << "file contains "
-       << i << " characters \n";
-
   InFile.close();
-  OutFile.close();
 
    std::cout << "Lines checked: " << lineCount << std::endl;
-  if(flag == 0 && syntaxChecker.emptyCheck()){
-    std::cout << "No errors found" << std::endl;
-  }
+
   //Show the amount of opening/closing brackets found/expected
   std::cout << "Brackets checked: " << pushCount;
   std::cout << " Brackets found: "<< popCount << std::endl;
+
+  //If theres mo error then return a message saying this
+  if(flag == 0 && syntaxChecker.emptyCheck()){
+    std::cout << "No errors found" << std::endl;
+  }
   //check if there is weighting issues in the brackets
   if(popCount != pushCount){
-    std::cout << "Possible error(s) detected: see errors to identify" << std::endl;
+    std::cout << "Possible error(s) detected: see messages to identify" << std::endl;
     std::cout << "Error may also be caused by brackets entered in wrong order." << std::endl;
   }
   while(! syntaxChecker.emptyCheck()){//Empty the stack at the end of programme
