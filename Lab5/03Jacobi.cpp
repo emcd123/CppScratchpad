@@ -11,31 +11,41 @@
 #include "Matrix.h"
 
 //  c=alpha*a + beta*b where a,b are vectors; alpha, beta are scalars
-void VecAdd (vector &c, vector &a, vector &b,
-             double alpha=1.0, double beta=1.0);
+void VecAdd (vector &c, vector &a, vector &b,double alpha=1.0, double beta=1.0);
 
 //  Compute a matrix-vector product (v=A*u)
 void MatVec(matrix &A, vector &u, vector &v);
 
 // Use Jacobi's method to solve a least-squares problem
-void Jacobi(matrix &A, vector &b, vector &v,
-	    unsigned int &count, double tol=1e-6);
+void Jacobi(matrix &A, vector &b, vector &v,unsigned int &count, double tol=1e-6);
 
-int main(void )
-{
+int main(void ){
   unsigned int N=3;
 
   matrix A(N);
   vector x(N), b(N);
-
-  for (unsigned int i=0; i<N; i++)
-  {
+/*
+  for (unsigned int i=0; i<N; i++){
     for (unsigned int j=0; j<N; j++)
       if (i==j)
 	A.setij(i, j, (double)(3*N));
       else A.setij(i,j, (double)(1+i+j));
     x.seti(i, 1.0);
   }
+*/
+  A.setij(0,0, 3);
+  A.setij(0,1, 0);
+  A.setij(0,2, 0);
+  A.setij(1,0, 1);
+  A.setij(1,1, 2);
+  A.setij(1,2, 0);
+  A.setij(2,0, 0);
+  A.setij(2,1, 1);
+  A.setij(2,2, -2);
+
+  b.seti(0, 30);
+  b.seti(1, 18);
+  b.seti(2, 2);
 
   std::cout << "A=" << std::endl;
   A.print();
@@ -44,7 +54,7 @@ int main(void )
   x.print();
 
   std::cout << "Setting b=A*x" <<std::endl;
-  MatVec(A, x, b);
+  //MatVec(A, x, b);
   std::cout << "b=" << std::endl;
   b.print();
 
@@ -63,17 +73,15 @@ int main(void )
 
 //////////////////
 //  Set v=A*u
-void MatVec(matrix &A, vector &u, vector &v)
-{
+void MatVec(matrix &A, vector &u, vector &v){
   unsigned int N;
   N = A.size();
 
-  if ( (N != u.size()) || ( N != v.size() ) )
+  if ( (N != u.size()) || ( N != v.size() ) ){
     std::cerr << "dimension mismatch in MatVec " << std::endl;
-  else
-  {
-    for (unsigned int i=0; i<N; i++)
-    {
+  }
+  else{
+    for (unsigned int i=0; i<N; i++){
       double x=0;
       for (unsigned int j=0; j<N; j++)
 	x += A.getij(i,j)*u.geti(j);
@@ -83,15 +91,14 @@ void MatVec(matrix &A, vector &u, vector &v)
 }
 
 //  alpha*a + beta*b where a,b are vectors; alpha, beta are scalars
-void VecAdd (vector &c, vector &a, vector &b, double alpha, double beta)
-{
+void VecAdd (vector &c, vector &a, vector &b, double alpha, double beta){
   unsigned int N;
   N = a.size();
 
-  if ( (N != b.size()) )
+  if ( (N != b.size()) ){
     std::cerr << "dimension mismatch in VecAdd " << std::endl;
-  else
-  {
+  }
+  else{
     for (unsigned int i=0; i<N; i++)
       c.seti(i, alpha*a.geti(i)+beta*b.geti(i) );
   }
@@ -100,9 +107,7 @@ void VecAdd (vector &c, vector &a, vector &b, double alpha, double beta)
 // Use Jacobi's method to solve Ax=b,
 // On entry : x is the initial guess
 // On exit  : x is the estimate for the solution
-void Jacobi(matrix &A, vector &b, vector &x,
-	    unsigned int &count, double tol)
-{
+void Jacobi(matrix &A, vector &b, vector &x,unsigned int &count, double tol){
   unsigned int N=A.size();
   count=0;
   if ( (N != b.size()) || (N != x.size() ) )
@@ -123,8 +128,7 @@ void Jacobi(matrix &A, vector &b, vector &x,
 
   // Now implement the algorithm:
   vector d(N), r(N);
-  do
-  {
+  do{
     count++;
     MatVec(T,x,d);      // Set d=T*x
     VecAdd(d, b, d);    // set d=b+d (so d=b+T*x)
@@ -133,5 +137,5 @@ void Jacobi(matrix &A, vector &b, vector &x,
     MatVec(A, x, r);    // set r=A*x
     VecAdd(r, b, r, 1.0, -1.0); // set r=b-A*r
 
-  }   while ( r.norm() > tol);
+  }while ( r.norm() > tol);
 }
