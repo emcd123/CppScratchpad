@@ -33,6 +33,7 @@ int main(void ){
     x.seti(i, 1.0);
   }
 */
+
   A.setij(0,0, 3);
   A.setij(0,1, 0);
   A.setij(0,2, 0);
@@ -47,11 +48,24 @@ int main(void ){
   b.seti(1, 18);
   b.seti(2, 2);
 
+  vector xnew(N);
+
+  for(unsigned i=0; i<N; i++){
+    xnew.seti(i, b.geti(i));
+    for(unsigned j=0; j<N; j++){
+       if( j != i){
+         xnew.seti(i,xnew.geti(i)-A.getij(i,j));
+
+         xnew.seti(i, xnew.geti(i)/A.getij(i,i));
+       }
+    }
+  }
+
   std::cout << "A=" << std::endl;
   A.print();
 
   std::cout << "x=" << std::endl;
-  x.print();
+  xnew.print();
 
   std::cout << "Setting b=A*x" <<std::endl;
   //MatVec(A, x, b);
@@ -103,6 +117,7 @@ void VecAdd (vector &c, vector &a, vector &b, double alpha, double beta){
       c.seti(i, alpha*a.geti(i)+beta*b.geti(i) );
   }
 }
+
 
 // Use Jacobi's method to solve Ax=b,
 // On entry : x is the initial guess
