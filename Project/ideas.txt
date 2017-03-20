@@ -1,0 +1,15 @@
+Use some small n value for the matrices, example n = 5
+
+Find some way of representing these these matrices as graphs
+
+Count total edges on the graphs
+(possibly look at euler characteristic to find these)
+
+Overload the \< operator in order to have A<B for some matrix A,B 
+
+So if A has 4 edges and B has 5 edges then A<B as 4<5 
+
+Decide what to do in case of A=4 and B=4 but graph is not the same
+
+Then choose a sorting algorithm (not bubble sort or merge sort)
+Might try quicksort using a pushdown stack
