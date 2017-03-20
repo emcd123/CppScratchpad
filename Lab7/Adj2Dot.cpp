@@ -1,6 +1,6 @@
 // Adj2Dot.cpp CS319 Lab 7
 //   What: Convert a graph, stored as an adjacency matrix in a csv file,
-//         into a dot (GraphViz) file. You can then upload that to one of 
+//         into a dot (GraphViz) file. You can then upload that to one of
 //  http://www.webgraphviz.com, http://sandbox.kidstrythisathome.com/erdos/
 // or (best) http://graphs.grevian.org/graph
 // Author: Niall Madden
@@ -10,7 +10,7 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <fstream> // For files
-#include <string> 
+#include <string>
 #include <sstream> // For manipulating string streams
 
 #include "Vector09.h" // From Week 9
@@ -24,11 +24,11 @@ int main(void)
   // Prompt the user  for the name of the file
   std::cout << "Enter the name of a \"csv\" file: " << std::endl;
   std::cin >> AdjFileName;
-   
+
   AdjFile.open(AdjFileName.c_str());
   while (AdjFile.fail())
   {
-    std::cerr << "Error - can't open file " << AdjFileName 
+    std::cerr << "Error - can't open file " << AdjFileName
 	 << ". Try again. " << std::endl;
     std::cout << "Enter the name of a \"csvt\" file: " << std::endl;
     std::cin >> AdjFileName;
@@ -65,7 +65,7 @@ int main(void)
   std::ofstream DotFile(DotFileName.c_str());
   if (DotFile.fail())
   {
-    std::cout << "Error opening " << DotFileName << std::endl; 
+    std::cout << "Error opening " << DotFileName << std::endl;
     exit(EXIT_FAILURE);
   }
 
@@ -74,7 +74,7 @@ int main(void)
   {
     DotFile << row << " -> {";
     for (int col=1; col<=N; col++)
-    {	 
+    {
       AdjFile.get(c); // this should be a 0 or 1
       if (c == '1')
 	DotFile << col << " ";
@@ -89,4 +89,3 @@ int main(void)
 
   return (0);
 }
-
