@@ -1,13 +1,17 @@
-Use some small n value for the matrices, example n = 5
+Use some small n value for the matrices, example n = 5 , done
 
-Find some way of representing these these matrices as graphs
+Find some way of representing these these matrices as graphs , done
+
+Dont bother storing them in files, just create the random matrices as im doing and store them in a fixed size array, done
+
+All my matrices are the same ,need to randomise
 
 Count total edges on the graphs
 (possibly look at euler characteristic to find these)
 
-Overload the \< operator in order to have A<B for some matrix A,B 
+Overload the \< operator in order to have A<B for some matrix A,B
 
-So if A has 4 edges and B has 5 edges then A<B as 4<5 
+So if A has 4 edges and B has 5 edges then A<B as 4<5
 
 Decide what to do in case of A=4 and B=4 but graph is not the same
 

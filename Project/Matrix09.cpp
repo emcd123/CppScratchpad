@@ -2,14 +2,14 @@
 // Author:   Niall Madden (NUI Galway) Niall.Madden@NUIGalway.ie
 // Date:     08/03/2017  (Week 9 of 1617-CS319)
 // What:     Header file for matrix class
-// See also: Matrix09.h 
+// See also: Matrix09.h
 // Changes from Matrix08.cpp:
 //    change #include to include latest header files.
 //    Added zero() method
 
 #include <iostream>
-#include "Vector09.h" 
-#include "Matrix09.h" 
+#include "Vector09.h"
+#include "Matrix09.h"
 
 // Basic constructor. See below for copy constructor.
 matrix::matrix (unsigned int Size)
@@ -52,7 +52,17 @@ void matrix::print (void)
     std::cout << std::endl;
   }
 }
-
+/*
+void matrix::dump (const vector &B){
+//   std::cout << "matrix is of size " << M << "-by-" << N << std::endl;
+  for (unsigned int i=0; i<N; i++){
+    for (unsigned int j=0; j<N; j++){
+      std::cout << "[" << entries[i*N+j] << "]";
+      entries[i*N+j] = B.entries[i];
+    }
+  }
+}
+*/
 ////////////////////////////////////////////////
 // Everything above this is from Week 7       //
 // Everything below this is from Week 8 and 9 //
@@ -68,7 +78,7 @@ matrix::matrix (const matrix &m)
 }
 
 
-// Overload the assignment = operator. 
+// Overload the assignment = operator.
 matrix &matrix::operator=(const matrix &B)
 {
   if (this == &B)
@@ -80,12 +90,12 @@ matrix &matrix::operator=(const matrix &B)
   entries = new double[(B.N)*(B.N)];
   for (unsigned int i=0; i<N*N; i++)
     entries[i] = B.entries[i];
-      
-  return(*this);      
+
+  return(*this);
 }
 
 // Overload the operator multiplication (*) for a matrix-vector
-// product. Matrix is passed implicitly as "this", the vector is 
+// product. Matrix is passed implicitly as "this", the vector is
 // passed explicitly. Will return v=(this)*u
 vector matrix::operator*(vector u)
 {
@@ -114,4 +124,3 @@ void matrix::zero (void)
     for (unsigned int j=0; j<N; j++)
       entries[i*N+j] = 0.0;
 }
-
