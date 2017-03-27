@@ -1,13 +1,13 @@
-Use some small n value for the matrices, example n = 5 , done
+Use some small n value for the matrices, example n = 5 , done!
 
-Find some way of representing these these matrices as graphs , done
+Find some way of representing these these matrices as graphs , done!
 
-Dont bother storing them in files, just create the random matrices as im doing and store them in a fixed size array, done
+Dont bother storing them in files, just create the random matrices as im doing and store them in a fixed size array, done!
 
-All my matrices are the same ,need to randomise
+All my matrices are the same ,need to randomise , done!
 
 Count total edges on the graphs
-(possibly look at euler characteristic to find these)
+(look at euler characteristic to find these)
 
 Overload the \< operator in order to have A<B for some matrix A,B
 

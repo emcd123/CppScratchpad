@@ -52,17 +52,8 @@ void matrix::print (void)
     std::cout << std::endl;
   }
 }
-/*
-void matrix::dump (const vector &B){
-//   std::cout << "matrix is of size " << M << "-by-" << N << std::endl;
-  for (unsigned int i=0; i<N; i++){
-    for (unsigned int j=0; j<N; j++){
-      std::cout << "[" << entries[i*N+j] << "]";
-      entries[i*N+j] = B.entries[i];
-    }
-  }
-}
-*/
+
+
 ////////////////////////////////////////////////
 // Everything above this is from Week 7       //
 // Everything below this is from Week 8 and 9 //

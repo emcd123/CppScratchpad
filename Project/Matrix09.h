@@ -29,7 +29,6 @@ public:
 
   vector operator*(vector u);
   void print(void);
-  //void dump (const vector &B);
 
   void zero (void); // New for Week 9
 };

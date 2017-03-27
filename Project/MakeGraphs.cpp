@@ -16,27 +16,28 @@
 int main(void ){
   unsigned int N=5;
   double p=20; // probability of an edge being present, as a percentage
-  vector B(N);
   matrix M[N](5);
 
   std::cout << "Generating the matrix:" << std::endl;
   srand(time(NULL));
 
-for(unsigned int k=0; k<5; k++){
-  for (unsigned int i=0; i<N; i++){
-    for (unsigned int j=0; j<N; j++){
-      if ( (i!=j) && (rand()%101) <=p ){
-        M[k].setij(i, j, 1);
+  for(unsigned int k=0; k<5; k++){
+    for (unsigned int i=0; i<N; i++){
+      for (unsigned int j=0; j<N; j++){
+        if ( (i!=j) && (rand()%101) <=p ){
+          M[k].setij(i, j, 1);
+        }
+        else{
+  	      M[k].setij(i, j, 0);
+        }
       }
-      else{
-	      M[k].setij(i, j, 0);
-      }
+      //want to change the probability for an edge each time,but want to keep it above 0.1 and below a certain bound
     }
-
+    std::cout << "M" << "[" << k << "]" << "=" << std::endl;
+    M[k].print();
   }
-  std::cout << "M" << "[" << k << "]" << "=" << std::endl;
-  M[k].print();
-}
+  //Now find the number of edges in each graph(matrix)
+  // Add up every non zero entry then divide by to find number of edges
 
   return (0);
 }
