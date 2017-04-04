@@ -26,9 +26,10 @@ public:
   unsigned int size(void) {return (N);};
   double getij (unsigned int i, unsigned int j);
   void setij (unsigned int i, unsigned int j, double x);
-
+  int edgeCount(void );
   vector operator*(vector u);
   void print(void);
+  //bool operator<(matrix& m1, matrix& m2);
 
   void zero (void); // New for Week 9
 };

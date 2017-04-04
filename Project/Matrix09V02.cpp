@@ -55,12 +55,10 @@ void matrix::print (void)
 
 int matrix::edgeCount(void){
   int edges = 0;
-  for (unsigned int i=0; i<N; i++){
-    for (unsigned int j=0; j<N; j++){
-      edges+=(entries[i*N+j]);
-    }
-  }
-  return edges;
+  for (unsigned int i=0; i<N; i++)
+    for (unsigned int j=0; j<N; j++)
+        edges+=(entries[i*N+j]);
+  return(edges);
 }
 
 ////////////////////////////////////////////////
@@ -95,6 +93,7 @@ matrix &matrix::operator=(const matrix &B)
 }
 
 bool operator<(matrix& m1, matrix& m2){
+//  std::cout << "Comparing " << m1.edgeCount() << " with " << m2.edgeCount() <<   std::endl;
   if(m2.edgeCount() < m1.edgeCount()){
     return true;
   }

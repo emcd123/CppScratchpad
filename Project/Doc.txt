@@ -1,0 +1,75 @@
+CS319 - Project - Documentation  
+ 
+Written by: Owen McDonnell; 14361511
+
+Sorting of matrices using QuickSort algorithm
+
+The goal:
+
+  To create an array of "randomly" created square matrices.
+  Then to rank them by some criteria, here that is the number of edges their graphs contain
+  Then sort the array from smallest to largest by our ranking criteria
+
+Creating the Matrix:
+ 
+  The files created in class, matrix09.cpp and matrix09.h were used(but modified) to create our
+  matrices 
+
+    Modifications:
+      A new method was added called edgeCount()
+      This counts the non-zero entries in the matrix and returns the sum as an integer
+
+      The < operator was also overloaded in order to rank the matrices against each other  
+      In our model A < B if the integer returned by edgeCount() for A is less than for B
+
+  The created matrices were then stored in an unsorted array of type matrix
+
+MakeGraphs.cpp:
+  Contains int main()
+
+  Here we make create instances of the matrix objects.
+  Using nested for loops to create the entries of the matrix.
+  Randomess was created by having a set probability of an edge appearing in any given cell.
+
+  This also contains the QuickSort function
+
+Std::sort performs as expected on array
+
+QuickSort:
+   Quicksort is a divide and conquer algorithm. Quicksort first divides a large array into two smaller sub-arrays: the low elements and the high elements. 	  Quicksort can then recursively sort the sub-arrays.
+
+   The steps are:
+
+     1. Pick an element, called a pivot, from the array.
+     2. Partitioning: reorder the array so that all elements with values less than the pivot come before the pivot, while all elements with values greater
+     than the pivot come after it (equal values can go either way). After this partitioning, the pivot is in its final position. This is called the    
+     partition operation.
+     3. Recursively apply the above steps to the sub-array of elements with smaller values and separately to the sub-array of elements with greater values.
+
+     The base case of the recursion is arrays of size zero or one, which never need to be sorted.
+
+Current bugs:
+  Compiler reaches the quicksort and has no returned errors, but is hanging
+  Function is getting stuck
+  
+  
+Recent fixed bugs:
+  Operator method would not accept more than one argument.
+  Solved: 
+    Removed it from member status in matrix class so it could take a second argument other than "this"
+
+  Operator loading on < not functioning correctly:
+    Error is "MakeGraphs.cpp:61:18: error: no match for ‘operator<’ (operand types are ‘matrix’ and ‘matrix’)"
+    Solved:
+      Have to declare the overloaded function as a prototype in MakeGraphs.cpp
+
+  Sengmentation Error, Not consistent with my inputted values for size of the array
+
+To-Do:
+  Need to remove extraneous information from matrix.cpp and matrix.h to make this more readable
+
+  Actually get quicksort to work
+
+  Perform analysis tests on my quicksort algorithm
+
+  
