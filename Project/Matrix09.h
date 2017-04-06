@@ -7,6 +7,10 @@
 //    change #include to include latest header files.
 //    Added zero() method
 
+
+//Modified by: Owen McDonnell, 14361511
+//To see changes refer to Doc.txt
+
 #ifndef _MATRIX_H_INCLUDED
 #define _MATRIX_H_INCLUDED
 

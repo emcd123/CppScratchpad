@@ -3,6 +3,9 @@ CS319 - Project - Documentation
 Written by: Owen McDonnell; 14361511
 
 Sorting of matrices using QuickSort algorithm
+Also Used:
+  std::sort 
+  BubbleSort
 
 The goal:
 
@@ -34,6 +37,10 @@ MakeGraphs.cpp:
   This also contains the QuickSort function
 
 Std::sort performs as expected on array
+
+BubbleSort:
+  Bubble sort is a simple sorting algorithm that repeatedly steps through the list to be sorted, compares each pair of adjacent items and 
+  swaps them if they are in the wrong order. The pass through the list is repeated until no swaps are needed, which indicates that the list is sorted.
 
 QuickSort:
    Quicksort is a divide and conquer algorithm. Quicksort first divides a large array into two smaller sub-arrays: the low elements and the high elements. 	  Quicksort can then recursively sort the sub-arrays.
@@ -72,4 +79,14 @@ To-Do:
 
   Perform analysis tests on my quicksort algorithm
 
-  
+Analysis:
+  Std::sort:
+    There appears to be a linear relationship between the size of the input and the time taken to execute
+    So it is O(n) roughly
+
+  BubbleSort:
+    There is no linear relationship between the size of the input and the time taken to execute in my model unlike std::sort.
+    It appears to start of linear for small N and then as N increases the time taken begins to increase at a much faster pace
+
+  Comparison:
+    Std::sort is overall much faster than my bubblesort algorithm for large values of N
